@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Counter</title>
+	</head>
+	<style>
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+	font-family: 'Roboto', sans-serif;
+	</style>
+	<style>
+	
+	.progrssBackground {
+		background-color: #2e2c2c;
+		width: 100%; 
+		padding: none; 
+		border-radius: 10px;
+		position: relative;
+		margin: auto;
+		margin-bottom: 1%;
+	}
+	.progressBar {
+		 border-radius: 10px;
+		 border-top-left-radius: 10px;
+		 border-bottom-left-radius: 10px;
+		 background: rgb(18,38,215);
+		 background: linear-gradient(90deg, rgba(17,29,140,1) 2vw, rgba(113,11,163,1) 34vw, rgba(252,0,255,1) 69vw);
+		 padding: 0.25%;
+		
+	}
+	.progressText {
+		padding-left: 1.5vw;
+		white-space: nowrap;
+	}
+	body {
+		background-color: #2e2c2c; 
+		color: white;
+		font-family: Roboto;
+		
+	}
+	
+	</style>
+	<body>
+		<div style="width: 75%; margin: auto; background-color: #4a4a4a; border-radius: 15px; padding: 3%; box-shadow: 5px 10px 10px #3b3939">
+			<h1>Simple Clock</h1>
+			<div class="progrssBackground">
+				<div class="progressBar" id="year">
+				<p class="progressText" id="yearText">Years</p>
+				</div>
+			</div>
+			<div class="progrssBackground">
+				<div class="progressBar" id="month">
+				<p class="progressText" id="monthText">Months</p>
+				</div>
+			</div>
+			<div class="progrssBackground">
+				<div class="progressBar" id="day">
+				<p class="progressText" id="dayText">Days</p>
+				</div>
+			</div>
+			<div class="progrssBackground">
+				<div class="progressBar" id="hour">
+				<p class="progressText" id="hourText">Hours</p>
+				</div>
+			</div>
+			<div class="progrssBackground">
+				<div class="progressBar" id="minute">
+				<p class="progressText" id="minuteText">Minutes</p>
+				</div>
+			</div>
+			<div class="progrssBackground">
+				<div class="progressBar" id="second">
+				<p class="progressText" id="secondText">Seconds</p>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+	function update() {
+		let time = new Date();
+		
+		let seconds = time.getSeconds() + (time.getMilliseconds() / 1000);
+		document.getElementById("secondText").innerHTML = time.getSeconds() + " Seconds";
+		let percent = seconds * 100 / 60;
+		if (percent == 0) {
+			document.getElementById("second").style.visibility = "hidden";
+			document.getElementById("secondText").style.visibility = "visible";
+		} else {
+			document.getElementById("second").style.visibility = "visible";
+		}
+		document.getElementById("second").style.width = percent + "%";
+		
+		let minutes = time.getMinutes() + (seconds / 60)
+		document.getElementById("minuteText").innerHTML = time.getMinutes() + " Minutes";
+		percent = minutes * 100 / 60;;
+		if (percent == 0) {
+			document.getElementById("minute").style.visibility = "hidden";
+			document.getElementById("minuteText").style.visibility = "visible";
+		} else {
+			document.getElementById("minute").style.visibility = "visible";
+		}
+		document.getElementById("minute").style.width = percent + "%";
+		
+		let hours = time.getHours() + (minutes / 60);
+		document.getElementById("hourText").innerHTML = time.getHours() + " Hours";
+		percent = hours * 100 / 24;
+		if (percent == 0) {
+			document.getElementById("hour").style.visibility = "hidden";
+			document.getElementById("hourText").style.visibility = "visible";
+		} else {
+			document.getElementById("hour").style.visibility = "visible";
+		}
+		document.getElementById("hour").style.width = percent + "%";
+		
+		let days = time.getDate() + (hours / 24);
+		let daysOfMonth = new Date(time.getFullYear(), time.getMonth() + 1, 0);
+		document.getElementById("dayText").innerHTML = time.getDate() + " Days";
+		percent = days / daysOfMonth.getDate() * 100;
+		if (percent == 0) {
+			document.getElementById("hour").style.visibility = "hidden";
+			document.getElementById("hourText").style.visibility = "visible";
+		} else {
+			document.getElementById("hour").style.visibility = "visible";
+		}
+		document.getElementById("day").style.width = percent + "%";
+		
+		let months = time.getMonth() + (days / daysOfMonth.getDate());
+		document.getElementById("monthText").innerHTML = time.getMonth() + 1 + " Months";
+		percent = (months + 1) * 100 / 12;
+		if (percent == 0) {
+			document.getElementById("month").style.visibility = "hidden";
+			document.getElementById("monthText").style.visibility = "visible";
+		} else {
+			document.getElementById("month").style.visibility = "visible";
+		}
+		document.getElementById("month").style.width = percent + "%";
+		window.requestAnimationFrame(update);
+		
+		document.getElementById("yearText").innerHTML = time.getFullYear() + " Years";
+		
+	}
+	
+	window.requestAnimationFrame(update);
+	</script>
+	
+	
+</html>
